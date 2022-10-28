@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  fluent-bit:
+      container_name: fluent-bit
+      image: fluent/fluent-bit
+#      ports:
+        # необходимо открыть порты, которые используются плагином forward, если планируется сбор данных по сети (rsyslog, snmp)
+#        - 24224:24224
+#        - 24224:24224/udp
+      volumes:
+      # добавляем конфигурацию в контейнер
+        - ./conf:/fluent-bit/etc
+        # Закоментировать строку, если данные принимаются по сети. PATH_TO_LOG заменить на путь к логфайлу
+        - PATH_TO_LOG:/var/log/access.log
+        - ./geoipdb:/geoipdb
